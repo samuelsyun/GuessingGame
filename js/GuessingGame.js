@@ -80,3 +80,28 @@ Game.prototype.provideHint = function () {
 function newGame() {
   return new Game();
 }
+
+
+
+function makeAGuess(game) {
+  let guess = $('#players-input').val();
+
+  $('#players-input').val('');
+
+  let output = game.playersGuessSubmission(Number(guess));
+
+  console.log(output);
+}
+
+$(document).ready(() => {
+  let game = new Game();
+
+  $('#submit-btn').click((event) => makeAGuess(game));
+
+  $('#players-input').keypress((event) => {
+    // enter key has keyCode of 13
+    if (event.which === 13) {
+      makeAGuess(game);
+    }
+  })
+})
