@@ -10,7 +10,7 @@ ul {
 img {
   display: inline;
   width: 200px;
-  height: 100px;
+  height: 100px
 }
 
 #footer {
@@ -61,7 +61,7 @@ img {
 }
 
 body {
-  background: url('leon.jpg');
+  background: url('../img/leon.jpg');
   background-size: 100px, 200px;
   background-repeat: round round;
 }
@@ -73,5 +73,10 @@ body {
 }
 
 #title {
+  margin: 10px
+}
+
+#gh-logo {
+  height: 75px;
   margin: 10px
 }
