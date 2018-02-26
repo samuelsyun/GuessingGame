@@ -54,7 +54,7 @@ function makeAGuess(game) {
 
 Game.prototype.checkGuess = function () {
   if (this.playersGuess === this.winningNumber) {
-    $('#hint-btn', '#submit-btn').prop('disabled', true);
+    $('#hint-btn, #submit-btn').prop('disabled', true);
     $('#subresult').text('Click the Reset button to play again!');
     return 'You Win! Winning number is ' + this.winningNumber;
   } else {
@@ -64,8 +64,8 @@ Game.prototype.checkGuess = function () {
       this.pastGuesses.push(this.playersGuess);
       $('#guesses li:nth-child(' + this.pastGuesses.length + ')').text(this.playersGuess);
 
-      if (this.pastGuesses.length >= 5) {
-        $('#hint-btn', '#submit-btn').prop('disabled', true);
+      if (this.pastGuesses.length === 5) {
+        $('#submit-btn, #hint-btn').prop('disabled', true);
         $('#subresult').text('Click the Reset button to play again!');
 
         return 'You Lose! Winning number is ' + this.winningNumber;
@@ -106,7 +106,6 @@ function makeAGuess(game) {
 
   $('#players-input').val('');
   $('#result').text(output);
-  console.log(output);
 }
 
 $(document).ready(() => {
@@ -135,6 +134,6 @@ $(document).ready(() => {
     $('#result').text('Are you Ready?');
     $('#subresult').text('Enter a valid guess!')
     $('.guess').text('-');
-    $('#hint-btn, #submit-btn').prop("disabled", false);
+    $('#hint-btn, #submit-btn').prop('disabled', false);
   });
 })
