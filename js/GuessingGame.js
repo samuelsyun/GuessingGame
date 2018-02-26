@@ -5,19 +5,15 @@ function generateWinningNumber() {
 //https://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
   let m = array.length, t, i;
-
   // While there remain elements to shuffle…
   while (m) {
-
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
-
     // And swap it with the current element.
     t = array[m];
     array[m] = array[i];
     array[i] = t;
   }
-
   return array;
 }
 
@@ -36,27 +32,50 @@ Game.prototype.isLower = function () {
 }
 
 Game.prototype.playersGuessSubmission = function (num) {
-  if (num < 1 || num > 100 || typeof num !== 'number') {
-    throw 'That is an invalid guess.';
+  if (num < 1 || num > 100 || typeof num !== 'number' || isNaN(num)) {
+    $('#players-input').val('');
+    $('#result').text('That is an invalid guess.');
+    $('#subresult').text('Enter a valid guess!')
+    throw 'That is an invalid guess. Enter a valid guess!';
   }
 
-  this.playersGuess = num
-
+  this.playersGuess = num;
   return this.checkGuess();
+}
+
+function makeAGuess(game) {
+  let guess = $('#players-input').val();
+  let output = game.playersGuessSubmission(Number(guess));
+
+  $('#players-input').val('');
+  $('#result').text(output);
+  console.log(output);
 }
 
 Game.prototype.checkGuess = function () {
   if (this.playersGuess === this.winningNumber) {
-    return 'You Win!';
+    $('#hint-btn', '#submit-btn').prop('disabled', true);
+    $('#subresult').text('Click the Reset button to play again!');
+    return 'You Win! Winning number is ' + this.winningNumber;
   } else {
     if (this.pastGuesses.indexOf(this.playersGuess) > -1) {
       return 'You have already guessed that number.';
     } else {
       this.pastGuesses.push(this.playersGuess);
+      $('#guesses li:nth-child(' + this.pastGuesses.length + ')').text(this.playersGuess);
 
       if (this.pastGuesses.length >= 5) {
-        return 'You Lose.';
+        $('#hint-btn', '#submit-btn').prop('disabled', true);
+        $('#subresult').text('Click the Reset button to play again!');
+
+        return 'You Lose! Winning number is ' + this.winningNumber;
       } else {
+        if (this.isLower()) {
+          $('#subresult').text('Guess Higher!');
+        } else {
+          $('#subresult').text('Guess Lower!');
+        }
+
         if (this.difference() < 10) {
           return "You're burning up!";
         } else if (this.difference() < 25) {
@@ -81,27 +100,41 @@ function newGame() {
   return new Game();
 }
 
-
-
 function makeAGuess(game) {
   let guess = $('#players-input').val();
-
-  $('#players-input').val('');
-
   let output = game.playersGuessSubmission(Number(guess));
 
+  $('#players-input').val('');
+  $('#result').text(output);
   console.log(output);
 }
 
 $(document).ready(() => {
   let game = new Game();
 
-  $('#submit-btn').click((event) => makeAGuess(game));
+  $('#submit-btn').click(function () {
+    makeAGuess(game);
+  });
 
-  $('#players-input').keypress((event) => {
+  $('#players-input').keypress(function (event) {
     // enter key has keyCode of 13
     if (event.which === 13) {
       makeAGuess(game);
     }
-  })
+  });
+
+  $('#hint-btn').click(function () {
+    let hints = game.provideHint();
+    $('#result').text('The winning Number is...')
+    $('#subresult').text(hints[0] + ', ' + hints[1] + ' or ' + hints[2]);
+  });
+
+  $('#reset-btn').click(function () {
+    game = newGame();
+
+    $('#result').text('Are you Ready?');
+    $('#subresult').text('Enter a valid guess!')
+    $('.guess').text('-');
+    $('#hint-btn, #submit-btn').prop("disabled", false);
+  });
 })

@@ -80,3 +80,8 @@ body {
   height: 75px;
   margin: 10px
 }
+
+#reset-btn, #hint-btn {
+  width: 80px;
+  height: 55px
+}
