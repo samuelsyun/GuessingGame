@@ -56,7 +56,7 @@ Game.prototype.checkGuess = function () {
   if (this.playersGuess === this.winningNumber) {
     $('#hint-btn, #submit-btn').prop('disabled', true);
     $('#subresult').text('Click the Reset button to play again!');
-    return 'You Win! Winning number is ' + this.winningNumber;
+    return `You Win! Winning number is ${this.winningNumber}`;
   } else {
     if (this.pastGuesses.indexOf(this.playersGuess) > -1) {
       return 'You have already guessed that number.';
@@ -68,7 +68,7 @@ Game.prototype.checkGuess = function () {
         $('#submit-btn, #hint-btn').prop('disabled', true);
         $('#subresult').text('Click the Reset button to play again!');
 
-        return 'You Lose! Winning number is ' + this.winningNumber;
+        return `You Lose! Winning number is ${this.winningNumber}`;
       } else {
         if (this.isLower()) {
           $('#subresult').text('Guess Higher!');
@@ -124,7 +124,7 @@ $(document).ready(() => {
 
   $('#hint-btn').click(function () {
     let hints = game.provideHint();
-    $('#result').text('The winning Number is...')
+    $('#result').text('Winning umber is...')
     $('#subresult').text(hints[0] + ', ' + hints[1] + ' or ' + hints[2]);
   });
 
