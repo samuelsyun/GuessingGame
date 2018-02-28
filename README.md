@@ -1,15 +1,14 @@
 ## Guessing Game
 
 
-### [samuelsyun.github.io/GuessingGame/] (https://samuelsyun.github.io/GuessingGame/)
-
-
 - Simple game of guessig a randomly produced number between 1 - 100.
 - After entering a guess, player can click Submit button or simply press Enter.
 - Player has 5 chances.
 - Player can click Hint button for hints.
 - Player can click Reset button to restart the game.
 
+
+<https://samuelsyun.github.io/GuessingGame/>
 
 
 #### html, css, bootstrap, javascript, and jquery
