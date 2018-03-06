@@ -1,19 +1,19 @@
+'use strict'
+
 function generateWinningNumber() {
   return Math.floor(Math.random() * 100) + 1;
 }
 
-//https://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
   let m = array.length, t, i;
-  // While there remain elements to shuffle…
+
   while (m) {
-    // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
-    // And swap it with the current element.
     t = array[m];
     array[m] = array[i];
     array[i] = t;
   }
+
   return array;
 }
 
@@ -35,7 +35,7 @@ Game.prototype.playersGuessSubmission = function (num) {
   if (num < 1 || num > 100 || typeof num !== 'number' || isNaN(num)) {
     $('#players-input').val('');
     $('#result').text('That is an invalid guess.');
-    $('#subresult').text('Enter a valid guess!')
+    $('#subresult').text('Enter a valid guess!');
     throw 'That is an invalid guess. Enter a valid guess!';
   }
 
@@ -49,13 +49,13 @@ function makeAGuess(game) {
 
   $('#players-input').val('');
   $('#result').text(output);
-  console.log(output);
 }
 
 Game.prototype.checkGuess = function () {
   if (this.playersGuess === this.winningNumber) {
     $('#hint-btn, #submit-btn').prop('disabled', true);
     $('#subresult').text('Click the Reset button to play again!');
+
     return `You Win! Winning number is ${this.winningNumber}`;
   } else {
     if (this.pastGuesses.indexOf(this.playersGuess) > -1) {
@@ -116,7 +116,6 @@ $(document).ready(() => {
   });
 
   $('#players-input').keypress(function (event) {
-    // enter key has keyCode of 13
     if (event.which === 13) {
       makeAGuess(game);
     }
