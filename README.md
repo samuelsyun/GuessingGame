@@ -8,7 +8,7 @@
 - Player can click Reset button to restart the game.
 
 
-#### html, css, bootstrap, javascript, and jquery
+#### html, css, bootstrap, javascript, jquery, and jasmine
 
 
 <https://samuelsyun.github.io/GuessingGame/>
